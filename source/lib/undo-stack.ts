@@ -23,12 +23,25 @@ export default class UndoStack {
 		}
 	};
 
+	private runSafely(fn: ToggleFunction, toggle: boolean): void {
+		try {
+			const result = fn(toggle);
+			if (result && typeof (result as Promise<void>).catch === 'function') {
+				(result as Promise<void>).catch(() => {
+					// Swallow: failures here are expected for non-modifiable extensions.
+				});
+			}
+		} catch {
+			// Swallow
+		}
+	}
+
 	undo(): void {
 		const functions = this._undoStack.pop();
 		if (functions) {
 			console.log('UndoStack: undo');
 			const [toggleFunction, undoFunction] = functions;
-			(undoFunction || toggleFunction)(false);
+			this.runSafely(undoFunction || toggleFunction, false);
 			this._redoStack.push(functions);
 		} else {
 			console.warn('UndoStack: nothing to undo');
@@ -40,7 +53,7 @@ export default class UndoStack {
 		if (functions) {
 			console.log('UndoStack: redo');
 			const [doFunction] = functions;
-			doFunction(true);
+			this.runSafely(doFunction, true);
 			this._undoStack.push(functions);
 		} else {
 			console.warn('UndoStack: nothing to redo');
@@ -59,7 +72,7 @@ export default class UndoStack {
 
 		this._redoStack.length = 0;
 		this._undoStack.push([doFunction, undoFunction]);
-		doFunction(true);
+		this.runSafely(doFunction, true);
 	}
 
 	clear(): void {

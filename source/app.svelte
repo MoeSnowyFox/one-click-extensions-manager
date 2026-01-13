@@ -7,6 +7,7 @@
 	import prepareExtensionList from './lib/prepare-extension-list';
 	import UndoStack from './lib/undo-stack';
 	import optionsStorage, { togglePin } from './options-storage';
+	import { setExtensionEnabledSafe } from './lib/management';
 
 	const getI18N = chrome.i18n.getMessage;
 	const undoStack = new UndoStack(window);
@@ -77,12 +78,15 @@
 
 	function toggleAll(enable: boolean) {
 		const affectedExtensions = extensions.filter(
-			extension => enable !== extension.enabled && extension.mayDisable !== false,
+			extension => enable !== extension.enabled && extension.mayDisable === true,
 		);
 
-		undoStack.do(toggle => {
+		undoStack.do(async (toggle) => {
 			for (const extension of affectedExtensions) {
-				chrome.management.setEnabled(extension.id, enable ? toggle : !toggle);
+				const ok = await setExtensionEnabledSafe(extension.id, enable ? toggle : !toggle, { swallow: true });
+				if (!ok) {
+					extension.mayDisable = false;
+				}
 			}
 		});
 	}
@@ -225,6 +229,7 @@
 					{...extension}
 					bind:enabled={extension.enabled}
 					bind:showExtras
+					mayDisable={extension.mayDisable}
 					oncontextmenu={onContextMenu}
 					onpin={() => handlePin(extension.id)}
 					{undoStack}

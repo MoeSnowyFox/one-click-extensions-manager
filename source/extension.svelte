@@ -3,6 +3,7 @@
 	import pickBestIcon from './lib/icons';
 	import openInTab from './lib/open-in-tab';
 	import trimName from './lib/trim-name';
+	import { setExtensionEnabledSafe } from './lib/management';
 
 	interface IconInfo {
 		size: number;
@@ -63,6 +64,14 @@
 	});
 
 	function toggleExtension(event: MouseEvent) {
+		// DEBUG: 打印点击时的扩展信息
+		console.log('=== DEBUG: toggleExtension clicked ===', {
+			name,
+			id,
+			enabled,
+			mayDisable,
+		});
+
 		// Check if Ctrl/Cmd is held down for pinning
 		if (event.ctrlKey || event.metaKey) {
 			onpin?.();
@@ -71,13 +80,18 @@
 
 		// Skip if extension cannot be modified by user
 		if (!mayDisable) {
+			console.log('=== DEBUG: Blocked! mayDisable is false ===');
 			return;
 		}
 
 		const wasEnabled = enabled;
 
-		undoStack.do(toggle => {
-			chrome.management.setEnabled(id, toggle !== wasEnabled);
+		undoStack.do(async (toggle) => {
+			const ok = await setExtensionEnabledSafe(id, toggle !== wasEnabled, { swallow: true });
+			if (!ok) {
+				// Freeze this item: some extensions report mayDisable=true but still can't be toggled.
+				mayDisable = false;
+			}
 		});
 	}
 

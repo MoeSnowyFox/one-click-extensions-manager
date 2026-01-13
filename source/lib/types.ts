@@ -2,6 +2,7 @@ export interface ExtensionInfo extends chrome.management.ExtensionInfo {
 	shown: boolean;
 	indexedName: string;
 	isPinned: boolean;
+	mayDisable: boolean;
 }
 
 // Stored options shape (kept small and stable)
@@ -15,4 +16,4 @@ export interface StoredOptions {
 	maxWidth?: string;
 }
 
-export type ToggleFunction = (toggle: boolean) => void;
+export type ToggleFunction = (toggle: boolean) => void | Promise<void>;
