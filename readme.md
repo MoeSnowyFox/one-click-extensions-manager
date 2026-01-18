@@ -1,32 +1,32 @@
-## <img src="source/logo.png" width="30" align="left"> One Click Extension Manager
+# Auto Extension Manager
 
-<img src="screencast.gif" align="right" alt="">
+[English](./readme_en.md) | 中文
 
-<!-- Text wrap helper; Without this, the text can be squished in 40px next to the image -->
+![Options](pic-options.png)
 
-![](https://user-images.githubusercontent.com/1402241/226161439-960aebe9-cad1-4d4d-a59a-f007db2abfa3.png)
+一个智能的 Chrome 扩展，用于自动化管理你的 Chrome 扩展程序。
 
-A _very simple_ Chrome extension to manage your Chrome extensions.
+本项目为 [one-click-extensions-manager](https://github.com/hankxdev/one-click-extensions-manager)
+的二次开发版本,实现了更智能的拓展管理,根据网址自动切换你所使用的拓展.
 
-It only requires the `management` permission.
+本扩展目前由 [MoeSnowyFox](https://github.com/MoeSnowyFox) 和 [copilot](https://github.com/features/copilot) 开发和维护.
 
-## Install
+✿✿ヽ(°▽°)ノ✿✿
 
-[link-chrome]: https://chrome.google.com/webstore/detail/one-click-extension-manag/pbgjpgbpljobkekbhnnmlikbbfhbhmem 'Version published on Chrome Web Store'
-[link-edge]: https://microsoftedge.microsoft.com/addons/detail/one-click-extensions-mana/jdodenbllldnoogfmbmmgpieafbnaogm 'Version published on Edge Web Stroe'
+## 安装
 
-[<img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/chrome/chrome.svg" width="48" alt="Chrome" valign="middle">][link-chrome] [<img valign="middle" src="https://img.shields.io/chrome-web-store/v/pbgjpgbpljobkekbhnnmlikbbfhbhmem.svg?label=%20">][link-chrome] and other Chromium browsers
+您可以自行编译并运行此拓展,暂未上传拓展商店.
 
-[<img src="https://raw.githubusercontent.com/alrra/browser-logos/90fdf03c/src/edge/edge.svg" width="48" alt="Edge" valign="middle">][link-edge] [<img valign="middle" src="https://img.shields.io/badge/dynamic/json?add-on&prefix=v&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fjdodenbllldnoogfmbmmgpieafbnaogm&label=%20">][link-edge]
+## 国际化
 
-[<img src="https://raw.githubusercontent.com/iamcal/emoji-data/08ec822c38e0b7a6fea0b92a9c42e02b6ba24a84/img-apple-160/1f99a.png" width="48" valign="middle">](https://github.com/sponsors/fregante) _If you like this extension, consider [sponsoring or hiring](https://github.com/sponsors/fregante) the maintainer [@fregante](https://twitter.com/fregante)_
-
-## Internationalization
-
-It's available in several languages:
+目前支持多种语言：
 
 - English (United States)
 - 中文 (简体)
+
+以下语言使用AI(_GPT-4o_)翻译
+若有错误请提出issue,欢迎您的pr
+
 - 中文 (繁體)
 - Italiano
 - Deutsch
@@ -41,12 +41,10 @@ It's available in several languages:
 - Polski
 - Latviešu
 
-You can suggest improvements or new languages using the `web-ext-translator` web tool:
+## 许可协议
 
-1. Visit https://lusito.github.io/web-ext-translator/?gh=https://github.com/hankxdev/one-click-extensions-manager/tree/main
-2. Make changes to your language
-3. Open a PR on this repo to submit your changes
+MIT © [MoeSnowyFox](https://github.com/MoeSnowyFox), [Hank Yang](https://momane.com/), [Federico Brigante](https://fregante.com/)
 
-## License
+## 鸣谢
 
-MIT © [Hank Yang](https://momane.com/), [Federico Brigante](https://fregante.com/)
+感谢 [one-click-extensions-manager](https://github.com/hankxdev/one-click-extensions-manager) 的作者和贡献者

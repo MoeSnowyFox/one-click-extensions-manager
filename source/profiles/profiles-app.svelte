@@ -382,11 +382,11 @@ return;
 			<button
 				class="app-header-btn"
 				onclick={openGitHub}
-				title={getI18N('extName') || 'One Click Extensions Manager'}
+				title={getI18N('extName') || 'Auto Extensions Manager'}
 			>
 				<img src="../logo.png" alt="Logo" class="app-logo" />
 				<h1 class="app-title">
-					{getI18N('extName') || 'One Click Extensions Manager'}
+					{getI18N('extName') || 'Auto Extensions Manager'}
 				</h1>
 			</button>
 		</div>

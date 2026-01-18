@@ -1,14 +1,14 @@
-## Privacy Policy
+# Privacy Policy
 
 This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
 
 **We DON'T collect any of your Your Personal data.**
 
-### Definitions
+## Definitions
 
 For the purposes of this Privacy Policy:
 
-Application means the software program provided by us downloaded by You on any electronic device, named **One click extensions manager**.
+Application means the software program provided by us downloaded by You on any electronic device, named **Auto extensions manager**.
 
 Device means any device that can access the Service such as a computer, a cellphone or a digital tablet.
 
@@ -27,4 +27,4 @@ You means the individual accessing or using the Service, or the company, or othe
 Contact Us
 If you have any questions about this Privacy Policy, You can contact us:
 
-By visiting this page: https://github.com/hankxdev/one-click-extensions-manager
+By visiting this page: [Auto-extensions-manager](https://github.com/MoeSnowyFox/one-click-extensions-manager)
