@@ -4,12 +4,12 @@
 	import Extension from './extension.svelte';
 	import {replaceModifierIfMac} from './lib/cmd-key';
 	import {focusNext, focusPrevious} from './lib/focus-next';
+	import {setExtensionEnabledSafe} from './lib/management';
 	import prepareExtensionList, {
 		removeImmutableExtension,
 	} from './lib/prepare-extension-list';
 	import UndoStack from './lib/undo-stack';
 	import optionsStorage, {togglePin} from './options-storage';
-	import {setExtensionEnabledSafe} from './lib/management';
 
 	const getI18N = chrome.i18n.getMessage;
 	const undoStack = new UndoStack(window);

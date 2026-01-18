@@ -31,6 +31,7 @@ const config = {
 			compilerOptions: {
 				dev: !production,
 			},
+			emitCss: false, // Keep CSS in the component, inject at runtime
 		}),
 		typescript({
 			sourceMap: !production,

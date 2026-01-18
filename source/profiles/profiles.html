@@ -1,11 +1,21 @@
 <!doctype html>
-<html class="webext-base-css-modal">
+<html data-theme="light">
 	<head>
 		<meta charset="UTF-8" />
 		<base target="_blank" />
 		<title>Profile Groups - One Click Extension Manager</title>
-		<link rel="stylesheet" href="../options/webext-base.css" />
 		<link rel="stylesheet" href="profiles.css" />
+		<script>
+			(() => {
+				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+				const applyTheme = value => {
+					document.documentElement.dataset.theme = value ? 'dark' : 'light';
+				};
+
+				applyTheme(prefersDark.matches);
+				prefersDark.addEventListener('change', e => applyTheme(e.matches));
+			})();
+		</script>
 	</head>
 	<body>
 		<div id="app"></div>

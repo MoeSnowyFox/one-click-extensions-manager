@@ -1,5 +1,5 @@
-import type {Options as WebextOptions} from 'webext-options-sync';
-import type {ProfileGroup, StoredOptions} from './lib/types';
+import type { Options as WebextOptions } from 'webext-options-sync';
+import type { ProfileGroup, StoredOptions } from './lib/types';
 import OptionsSync from 'webext-options-sync';
 
 type StorageOptions = StoredOptions & WebextOptions;
@@ -11,6 +11,7 @@ const optionsStorage = new OptionsSync<StorageOptions>({
 		pinnedExtensions: '[]', // JSON stringified array of pinned extension IDs
 		profileGroups: '[]', // JSON stringified array of profile groups
 		profilesEnabled: true, // Profile groups enabled by default
+		defaultProfileGroup: '', // JSON stringified default profile group
 	} as StorageOptions,
 	migrations: [
 		// Remove keys that are no longer supported
@@ -33,6 +34,12 @@ const optionsStorage = new OptionsSync<StorageOptions>({
 			}
 			if (options.profilesEnabled === undefined) {
 				options.profilesEnabled = true;
+			}
+		},
+		// Migration to add defaultProfileGroup if it doesn't exist
+		(options: StorageOptions) => {
+			if (!options.defaultProfileGroup) {
+				options.defaultProfileGroup = '';
 			}
 		},
 	],
@@ -72,11 +79,11 @@ export async function togglePin(extensionId: string): Promise<boolean> {
 const defaultPopup = chrome.runtime.getManifest().action?.default_popup ?? '';
 
 export async function matchOptions(): Promise<void> {
-	const {position} = (await optionsStorage.getAll()) as StoredOptions;
-	chrome.action.setPopup({popup: position === 'popup' ? defaultPopup : ''});
+	const { position } = (await optionsStorage.getAll()) as StoredOptions;
+	chrome.action.setPopup({ popup: position === 'popup' ? defaultPopup : '' });
 
 	const inSidebar = position === 'sidebar';
-	chrome.sidePanel.setOptions({enabled: inSidebar});
+	chrome.sidePanel.setOptions({ enabled: inSidebar });
 	chrome.sidePanel.setPanelBehavior({
 		openPanelOnActionClick: inSidebar,
 	});
@@ -103,7 +110,7 @@ export function getProfileGroups(options: StoredOptions): ProfileGroup[] {
 export async function saveProfileGroups(
 	profileGroups: ProfileGroup[],
 ): Promise<void> {
-	await optionsStorage.set({profileGroups: JSON.stringify(profileGroups)});
+	await optionsStorage.set({ profileGroups: JSON.stringify(profileGroups) });
 }
 
 /**
@@ -128,7 +135,7 @@ export async function updateProfileGroup(
 	const profileGroups = getProfileGroups(options);
 	const index = profileGroups.findIndex(p => p.id === profileGroup.id);
 	if (index !== -1) {
-		profileGroups[index] = {...profileGroup, updatedAt: Date.now()};
+		profileGroups[index] = { ...profileGroup, updatedAt: Date.now() };
 		await saveProfileGroups(profileGroups);
 	}
 }
@@ -171,5 +178,34 @@ export async function getProfilesEnabled(): Promise<boolean> {
  * Set the global enabled state for profile groups
  */
 export async function setProfilesEnabled(enabled: boolean): Promise<void> {
-	await optionsStorage.set({profilesEnabled: enabled});
+	await optionsStorage.set({ profilesEnabled: enabled });
+}
+
+/**
+ * Get the default profile group
+ */
+export function getDefaultProfileGroup(options: StoredOptions): ProfileGroup | null {
+	try {
+		const data = options.defaultProfileGroup;
+		if (!data) {
+			return null;
+		}
+		return JSON.parse(data) as ProfileGroup;
+	} catch {
+		return null;
+	}
+}
+
+/**
+ * Set the default profile group
+ */
+export async function setDefaultProfileGroup(profile: ProfileGroup): Promise<void> {
+	await optionsStorage.set({ defaultProfileGroup: JSON.stringify(profile) });
+}
+
+/**
+ * Clear the default profile group
+ */
+export async function clearDefaultProfileGroup(): Promise<void> {
+	await optionsStorage.set({ defaultProfileGroup: '' });
 }

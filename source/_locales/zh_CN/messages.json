@@ -125,6 +125,9 @@
 	"delete": {
 		"message": "删除"
 	},
+	"disabled": {
+		"message": "已禁用"
+	},
 	"confirmDeleteProfile": {
 		"message": "确定要删除此配置组吗？"
 	},
@@ -133,6 +136,42 @@
 	},
 	"extensions": {
 		"message": "个扩展"
+	},
+	"defaultProfile": {
+		"message": "默认配置组"
+	},
+	"defaultProfileDescription": {
+		"message": "当没有其他配置组匹配时，默认配置组会生效，用于设置扩展的基础状态。"
+	},
+	"noDefaultProfile": {
+		"message": "尚未配置默认组"
+	},
+	"noDefaultProfileDescription": {
+		"message": "配置一个默认组来设定扩展的基础状态。"
+	},
+	"configureDefault": {
+		"message": "配置默认组"
+	},
+	"editDefaultProfile": {
+		"message": "编辑默认组"
+	},
+	"defaultExtensionStatesHelp": {
+		"message": "当没有其他配置组匹配时，使用此处设置的扩展状态。"
+	},
+	"configure": {
+		"message": "配置"
+	},
+	"customProfiles": {
+		"message": "自定义配置组"
+	},
+	"basicInfo": {
+		"message": "基础信息"
+	},
+	"darkMode": {
+		"message": "深色模式"
+	},
+	"lightMode": {
+		"message": "浅色模式"
 	},
 	"backToOptions": {
 		"message": "返回设置"

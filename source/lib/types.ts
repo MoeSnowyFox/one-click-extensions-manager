@@ -12,6 +12,7 @@ export interface StoredOptions {
 	pinnedExtensions: string; // JSON stringified array
 	profileGroups: string; // JSON stringified ProfileGroup[]
 	profilesEnabled: boolean; // Global switch for profile groups
+	defaultProfileGroup: string; // JSON stringified default ProfileGroup
 
 	// Legacy keys (to be cleaned up by migrations)
 	width?: string;
@@ -62,6 +63,7 @@ export interface ProfileGroup {
 	priority: number;
 	conditions: MatchCondition[];
 	extensionStates: ExtensionStateConfig[];
+	isDefault?: boolean; // Whether this is the default profile
 	createdAt: number;
 	updatedAt: number;
 }
