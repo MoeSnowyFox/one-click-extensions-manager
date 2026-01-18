@@ -175,5 +175,14 @@
 	},
 	"backToOptions": {
 		"message": "Back to Options"
+	},
+	"settings": {
+		"message": "Settings"
+	},
+	"searchExtensions": {
+		"message": "Search extensions..."
+	},
+	"enabled": {
+		"message": "Enabled"
 	}
 }

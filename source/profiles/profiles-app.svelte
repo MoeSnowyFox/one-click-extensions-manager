@@ -1,4 +1,4 @@
-<script lang="ts">
+﻿<script lang="ts">
 	import type {
 		ExtensionStateConfig,
 		ExtensionTargetState,
@@ -76,8 +76,28 @@
 	let showNewProfileModal = $state(false);
 	let newProfileName = $state('');
 
+	// Search states
+	let defaultSearchQuery = $state('');
+	let customSearchQuery = $state('');
+
 	const selectedProfile = $derived(
 		profiles.find(p => p.id === selectedProfileId) ?? null,
+	);
+
+	const filteredDefaultExtensions = $derived(
+		defaultSearchQuery.trim()
+			? defaultExtensionStates.filter(ext =>
+					ext.name.toLowerCase().includes(defaultSearchQuery.toLowerCase()),
+				)
+			: defaultExtensionStates,
+	);
+
+	const filteredCustomExtensions = $derived(
+		customSearchQuery.trim()
+			? editingExtensionStates.filter(ext =>
+					ext.name.toLowerCase().includes(customSearchQuery.toLowerCase()),
+				)
+			: editingExtensionStates,
 	);
 
 	function applyTheme(value: boolean): void {
@@ -419,11 +439,19 @@ return;
 					<span class="nav-icon" style="color: {getProfileColors(index)}"
 					></span>
 					<span class="nav-text">{profile.name}</span>
-					<span class="badge"
-						>{profile.enabled
-							? profile.conditions.length
-							: getI18N('disabled') || 'Disabled'}</span
+					<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+					<!-- svelte-ignore a11y_click_events_have_key_events -->
+					<label
+						class="toggle-switch toggle-switch-sm"
+						onclick={e => e.stopPropagation()}
 					>
+						<input
+							type="checkbox"
+							checked={profile.enabled}
+							onchange={() => handleToggleProfile(profile)}
+						/>
+						<span class="slider"></span>
+					</label>
 				</button>
 			{/each}
 
@@ -590,6 +618,14 @@ return;
 						{getI18N('defaultExtensionStatesHelp') ||
 							'Set the default state for extensions when no other profile matches.'}
 					</p>
+					<div class="extension-search">
+						<input
+							type="text"
+							class="input"
+							placeholder={getI18N('searchExtensions') || 'Search extensions...'}
+							bind:value={defaultSearchQuery}
+						/>
+					</div>
 					<div class="extension-states">
 						<div class="extension-states-header" aria-hidden="true">
 							<div class="state-legend">
@@ -598,7 +634,7 @@ return;
 								<span>{getI18N('disable') || 'Disable'}</span>
 							</div>
 						</div>
-						{#each defaultExtensionStates as ext (ext.id)}
+						{#each filteredDefaultExtensions as ext (ext.id)}
 							<div class="extension-state-item">
 								<img
 									src={pickBestIcon(ext.icons, 24)}
@@ -750,6 +786,14 @@ return;
 						{getI18N('extensionStatesHelp') ||
 							'Configure how each extension behaves when this profile is active.'}
 					</p>
+					<div class="extension-search">
+						<input
+							type="text"
+							class="input"
+							placeholder={getI18N('searchExtensions') || 'Search extensions...'}
+							bind:value={customSearchQuery}
+						/>
+					</div>
 					<div class="extension-states">
 						<div class="extension-states-header" aria-hidden="true">
 							<div class="state-legend">
@@ -758,7 +802,7 @@ return;
 								<span>{getI18N('disable') || 'Disable'}</span>
 							</div>
 						</div>
-						{#each editingExtensionStates as ext (ext.id)}
+						{#each filteredCustomExtensions as ext (ext.id)}
 							<div class="extension-state-item">
 								<img
 									src={pickBestIcon(ext.icons, 24)}

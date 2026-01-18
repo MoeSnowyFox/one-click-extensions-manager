@@ -175,5 +175,14 @@
 	},
 	"backToOptions": {
 		"message": "返回设置"
+	},
+	"settings": {
+		"message": "设置"
+	},
+	"searchExtensions": {
+		"message": "搜索扩展..."
+	},
+	"enabled": {
+		"message": "已启用"
 	}
 }
