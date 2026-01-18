@@ -22,6 +22,15 @@ const config = {
 		format: 'es',
 		dir: 'distribution',
 	},
+	onwarn(warning, handler) {
+		if (
+			warning.code === 'CIRCULAR_DEPENDENCY' &&
+			/node_modules[\\/]+svelte/.test(warning.importer ?? warning.message)
+		) {
+			return;
+		}
+		handler(warning);
+	},
 	plugins: [
 		del({
 			targets: ['distribution'],

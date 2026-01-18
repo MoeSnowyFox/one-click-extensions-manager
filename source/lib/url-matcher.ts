@@ -10,7 +10,7 @@
  * Inspired by SwitchyOmega's condition matching system.
  */
 
-import type { MatchCondition, MatchType, ProfileGroup } from './types';
+import type {MatchCondition, MatchType, ProfileGroup} from './types';
 
 /**
  * Escapes special regex characters in a string

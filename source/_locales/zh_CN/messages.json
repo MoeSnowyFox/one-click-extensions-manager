@@ -105,7 +105,7 @@
 		"message": "配置此配置组激活时各扩展的行为。"
 	},
 	"keepState": {
-		"message": "保持原状"
+		"message": "保持"
 	},
 	"enable": {
 		"message": "启用"

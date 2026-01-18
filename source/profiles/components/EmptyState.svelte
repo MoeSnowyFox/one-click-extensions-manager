@@ -7,7 +7,13 @@
 		onAction?: () => void;
 	}
 
-	let {icon = '📋', title, description, buttonText, onAction}: Props = $props();
+	const {
+		icon = '📋',
+		title,
+		description,
+		buttonText,
+		onAction,
+	}: Props = $props();
 </script>
 
 <div class="empty-state">

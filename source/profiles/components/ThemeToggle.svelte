@@ -48,4 +48,9 @@
 		background: var(--border);
 		transform: scale(1.1);
 	}
+
+	.theme-toggle-btn:focus-visible {
+		outline: 2px solid var(--primary);
+		outline-offset: 2px;
+	}
 </style>

@@ -14,7 +14,7 @@
 		onSelect: (id: string) => void;
 	}
 
-	let {items, activeId, sectionTitle, onSelect}: Props = $props();
+	const {items, activeId, sectionTitle, onSelect}: Props = $props();
 </script>
 
 {#if sectionTitle}
